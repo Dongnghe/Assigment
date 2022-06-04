@@ -11,7 +11,7 @@
 <body>
     <h1>FPT University Attendance Taking System</h1>
     <div>
-        <Div> Sinh viên, Giảng viên </Div>
+        <Div> Sinh vien, Giang Vien </Div>
         <div>
             <select name=" campus" id="">
                 <option>Select Campus</option>
