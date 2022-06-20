@@ -5,23 +5,18 @@
 
 package controller;
 
-import dal.EmployeeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Date;
-import java.util.ArrayList;
-import model.AnualRequest;
-import model.Employee;
 
 /**
  *
  * @author Giang Dong PC
  */
-public class insertController extends HttpServlet {
+public class attendanceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +33,10 @@ public class insertController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet insertController</title>");  
+            out.println("<title>Servlet attendanceController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet insertController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet attendanceController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +53,7 @@ public class insertController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        EmployeeDBContext employeeDBContext = new EmployeeDBContext();
-        ArrayList<Employee> empList = employeeDBContext.list();
-        request.setAttribute("empList", empList);
-        request.getRequestDispatcher("../webview/insert.jsp").forward(request, response);
+        request.getRequestDispatcher("web/attendance.jsp").forward(request, response);
     } 
 
     /** 
@@ -74,19 +66,7 @@ public class insertController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String reason = request.getParameter("reason");
-        String from = request.getParameter("from");
-        String to = request.getParameter("to");
-        int createdBy = Integer.parseInt(request.getParameter("createdBy"));
-        int reviewedBy = Integer.parseInt(request.getParameter("reviewedBy"));
-        AnualRequest anualRequest = new AnualRequest();
-        anualRequest.setReason(reason);
-        anualRequest.setFrom(Date.valueOf(from));
-        anualRequest.setTo(Date.valueOf(to));
-        anualRequest.setCreate_by(createdBy);
-        anualRequest.setReviewed_by(reviewedBy);
-        anualRequest.setStatus("pending");
-        
+        processRequest(request, response);
     }
 
     /** 
