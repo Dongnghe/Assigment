@@ -1,19 +1,27 @@
-.banner {
-    font-family: 'Trebuchet MS', sans-serif;
-    background-color: rgb(255, 191, 81);
-    padding-left: 5px;
+body{
+    width: 80%;
+    margin: 0 auto;
 }
-
+a{
+    text-decoration:none;
+}
 .studentImg {
     height: 150px;
     width: 100px;
     display: block;
     margin: 0 auto;
 }
+.banner {
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: rgb(255, 191, 81);
+    padding-left: 5px;
+}
 
+body{
+    font-family: 'Trebuchet MS', sans-serif;
+}
 th,
 td {
-    font-family: 'Trebuchet MS', sans-serif;
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
@@ -23,33 +31,35 @@ tr {
 }
 
 table {
-    width: 80%;
+    width: 100%;
     border-collapse: collapse;
-    margin: 0 auto;
 }
 
-tr:first-child {
+th {
     background-color: rgb(255, 191, 81);
 }
 
-td:first-child {
+.t2 td:first-child {
     width: 5%;
 }
 
-td:nth-child(2) {
+.t2 td:nth-child(2) {
     width: 15%;
 }
 
-td:nth-child(3) {
+.t2 td:nth-child(3) {
     width: 15%;
 }
 
-td:nth-child(4) {
+.t2 td:nth-child(4) {
     width: 11%;
 }
 
-td:nth-child(5),
-td:nth-child(6),
-td:nth-child(7) {
+.t2 td:nth-child(5),
+.t2 td:nth-child(6),
+.t2 td:nth-child(7) {
     width: 18%;
+}
+.selected{
+    font-weight: bold;
 }
