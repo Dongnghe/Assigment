@@ -40,10 +40,10 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td><a href="Group?<">SE1631</a></td>
+                    <td><a href="/Assignment/Group">SE1631</a></td>
                     <td>HE163818</td>
                     <td>Nguyễn Giang Đông</td>
-                    <td><img class="studentImg" src="HE163818.png" alt="DongNGHE163818"></td>
+                    <td><img class="studentImg" src="../img/HE163818.png" alt="DongNGHE163818"></td>
                     <td>
                         <label for="attended">Attended</label>
                         <input type="radio" name="1" id="Attended" value="Attended" checked>
@@ -58,7 +58,7 @@
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td><a href="/Group<">SE1631</a></td>
+                    <td><a href="/Assignment/Group">SE1631</a></td>
                     <td>HE163818</td>
                     <td>Nguyễn Giang Đông</td>
                     <td><img class="studentImg" src="HE163818.png" alt="DongNGHE163818"></td>

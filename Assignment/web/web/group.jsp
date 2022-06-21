@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td><img class="studentImg" src="HE163818.png" alt="DongNGHE163818"></td>
+                    <td><img class="studentImg" src="../img/HE163818.png" alt="DongNGHE163818"></td>
                     <td>DongNGHE163818</td>
                     <td>HE163818</td>
                     <td>Nguyễn</td>

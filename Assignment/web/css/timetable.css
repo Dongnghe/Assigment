@@ -61,7 +61,7 @@ form.lecture-search input[type=text] {
 }
 
 form.lecture-search button {
-    width: 6%;
+    width: 75px;
     font-size: 15px;
     padding: 10px;
     background: #2196F3;

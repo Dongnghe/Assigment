@@ -20,7 +20,7 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-
+s
     <div>
         <Table>
             <tr>
@@ -54,7 +54,7 @@
             <tr>
                 <td>Slot 1</td>
                 <td>
-                    <a href="/Attendance">PRJ301</a>
+                    <a href="/Assignment/Attendance">PRJ301</a>
                     <br>
                     at DE-C201 
                     <br>
@@ -62,7 +62,7 @@
                     <li>7:30 - 9:00</li>
                 </td>
                 <td>
-                    <a href="/Attendance">PRJ301</a><br>
+                    <a href="/Assignment/Attendance">PRJ301</a><br>
                     at DE-C201
                     <br>
                     <span class="attended">Attended</span></div>                   
@@ -84,7 +84,7 @@
                 <td>Slot 2</td>
                 <td>-</td>
                 <td>
-                    <a href="infomation.html">PRJ301</a><br>
+                    <a href="/Assignment/Attendance">PRJ301</a><br>
                     at DE-C201
                     <br>
                     <span class="notyet">Not yet</span>                  
