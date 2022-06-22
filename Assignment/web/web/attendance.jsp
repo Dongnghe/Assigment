@@ -61,7 +61,7 @@
                     <td><a href="/Assignment/Group">SE1631</a></td>
                     <td>HE163818</td>
                     <td>Nguyễn Giang Đông</td>
-                    <td><img class="studentImg" src="HE163818.png" alt="DongNGHE163818"></td>
+                    <td><img class="studentImg" src="D:\GitHub\Prj321Assigment\Assignment\web\img\HE163818.png" alt="DongNGHE163818"></td>
                     <td>
                         <label for="attended">Attended</label>
                         <input type="radio" name="2" id="Attended" value="Attended" checked>

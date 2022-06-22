@@ -6,7 +6,7 @@
 <head>
     <title>Group</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="css/course.css">
+    <link rel="stylesheet" href="css/group.css">
 </head>
 
 <body>
