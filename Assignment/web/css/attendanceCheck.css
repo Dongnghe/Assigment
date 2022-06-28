@@ -5,25 +5,24 @@
     margin: 0 auto;
 }
 
-.banner {
-    width: 80%;
+.info-banner {
+    width: 79%;
+    height: 10%;
     border-collapse: collapse;
-    margin: 0 auto;
-    background-color: rgb(255, 191, 81);
-    padding-left: 5px;
-}
-.info-banner{
-    width: 80%;
-    height: 40px;
-    border-collapse: collapse;
-    background-color: rgb(212, 212, 212);
+    background-color: #f1f1f1;
     margin: 0 auto;
     padding: 1px 1px 1px 1px;
     margin-bottom: 5px;
+    padding-left: 1%;
+    white-space: nowrap;
+    font-size: large;
 }
-body{
+
+body {
+
     font-family: 'Trebuchet MS', sans-serif;
 }
+
 th,
 td {
     padding: 8px;
@@ -40,29 +39,47 @@ table {
     margin: 0 auto;
 }
 
-tr:first-child {
+thead {
     background-color: rgb(255, 191, 81);
 }
 
-td:first-child {
+td:first-child,th:first-child {
     width: 5%;
 }
 
-td:nth-child(2) {
-    width: 15%;
+td:nth-child(2),th:nth-child(2) {
+    width: 7%;
 }
 
+
 td:nth-child(3) {
-    width: 10%;
+    width: 7%;
+
 }
 
 td:nth-child(4) {
     width: 20%;
+
 }
-td:nth-child(6),
-td:nth-child(7) {
-    width: 10%;
+
+td:nth-child(5) {
+    width: 12%;
+
 }
-a{
-    text-decoration:none;
+
+td:nth-child(even) {
+    background-color: rgb(248, 248, 248);
+}
+
+a {
+    text-decoration: none;
+}
+.attened{
+    color: green;
+}
+.absent{
+    color: red;
+}
+.notyet{
+    color: red;
 }

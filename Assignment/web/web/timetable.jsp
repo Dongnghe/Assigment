@@ -16,7 +16,7 @@
     <div class="search-container">       
         <form class="lecture-search" action="">
             Lecture: 
-            <input type="text" placeholder="Search.." name="search">
+            <input type="text" placeholder="sonnt5" name="search">
             <button type="submit">Submit</button>
         </form>
     </div>

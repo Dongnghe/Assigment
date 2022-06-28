@@ -21,8 +21,8 @@
         <h1>Single Activity Attendance</h1>
     </div>
     <Div class="info-banner">   
-        <p>Attendance for <span>PRJ301</span> with <span>lecturer at slot 1 on Monday 13/06/2022, Summer 2022 in room
-                DE-C201</span></p>
+        <p>Attendance for <span>PRJ301</span> with lecturer <span>sonnt5</span> at slot 1 on Monday 13/06/2022, Summer 2022 in room
+                DE-C201</p>
     </Div>
     <div>
         <form form method="post" action="">
