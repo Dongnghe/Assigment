@@ -3,6 +3,11 @@ select TimetableCode ,
 	r.RoomName,
 	tt.[Date],
 	tt.Slot
-	from TimeTable tt, Room r, 
-	where tt.RoomId = r.RoomId
+	from TimeTable tt
+	inner join Room r
+		on tt.RoomId = r.RoomId
+	inner join Slot s
+		on s.Slot = tt.Slot
+	where tt.[Date] >= ?
+	and tt.[Date] <= ?
 	;

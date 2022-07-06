@@ -1,20 +1,27 @@
+use Assigment
 select TimetableCode ,
 	GroupId, 
 	r.RoomName,
 	tt.[Date],
 	tt.Slot
-	from TimeTable tt, Room r 
-	where tt.RoomId = r.RoomId
+	from TimeTable tt 
+		inner join Room r 
+		on tt.RoomId = r.RoomId
 	;
-select sl.GroupId,
-	sl.FullName,
-	sl.GroupId,
-	e.Attended from
+select sg.GroupId,
+	sg.FullName,
+	sg.GroupId,
+	tt.TimetableCode from
 (select s.StudentId, 
 	CONCAT(s.Surname,' ',s.MiddleName,' ',s.GivenName) as FullName,
 	g.GroupId
-	from Student s , StudentGroupRelation sgr, [Group] g 
-	where s.StudentId = sgr.StudentId 
-	and sgr.GroupId = g.GroupId) sl , Enroll e
-	where = e.TimetableCode = ?;
+	from Student s 
+	inner join StudentGroupRelation sgr 
+		on s.StudentId = sgr.StudentId 
+	inner join [Group] g 
+		on  sgr.GroupId = g.GroupId
+	where g.GroupId = 1) sg 
+	inner join TimeTable tt
+		on tt.GroupId = sg.GroupId
+	where tt.TimetableCode = 2;
 

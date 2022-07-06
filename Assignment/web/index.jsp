@@ -9,15 +9,19 @@
 </head>
 
 <body>
-    <h1>FPT University Attendance Taking System</h1>
-    <div>
-        <Div> Sinh vien, Giang Vien </Div>
-        <div>
-            <select name=" campus" id="">
-                <option>Select Campus</option>
-            </select>
-        </div>
-    </div>
+    <div>Caculator</div>
+        <form action="Timetable" method="get">
+            First <input type="text" name="value1"/> <br/>
+            Second <input type="text" name="value2"/> <br/>
+            Operator 
+            <select name="operator"> 
+                <option>+</option> 
+                <option>-</option> 
+                <option>x</option> 
+                <option>/</option> 
+            </select> <br/>
+            <button type="submit" value="caculator">Submit</button>  
+        </form>
 </body>
 
 </html>
