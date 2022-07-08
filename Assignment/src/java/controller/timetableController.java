@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.rmi.server.ExportException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import model.Week;
 
 /**
  *
@@ -47,19 +48,29 @@ public class timetableController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String rawYear = request.getParameter("year");
-        int selectYears;
+        String rawWeek = request.getParameter("week");
+        int selectYear;
+        int selectWeek;
         try {
             if (rawYear == null) {
                 throw new Exception();
             }
-            selectYears = Integer.parseInt(rawYear);          
+            selectYear = Integer.parseInt(rawYear);   
+            selectWeek = Integer.parseInt(rawWeek);
         } catch (Exception e) {
-            selectYears = LocalDate.now().getYear();
+            selectYear = LocalDate.now().getYear();
+            selectWeek = 0;
         }
-        request.setAttribute("selectYears", selectYears);
+        
+        request.setAttribute("selectYear", selectYear);
+        request.setAttribute("selectWeek", selectWeek);
         TimetableDBContext timetableDBContext = new TimetableDBContext();
-        ArrayList<Integer> yearList = timetableDBContext.yearList();
+        ArrayList<Integer> yearList = timetableDBContext.yearList();     
         request.setAttribute("yearList", yearList);
+        ArrayList<Week> weekList = timetableDBContext.weekList(selectYear);
+        request.setAttribute("weekList", weekList);
+        ArrayList<LocalDate> dayList = timetableDBContext.dayList(weekList.get(selectWeek));
+        request.setAttribute("dayList", dayList);
         request.getRequestDispatcher("web/timetable.jsp").forward(request, response);
     }
 

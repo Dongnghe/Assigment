@@ -1,27 +1,29 @@
-<!DOCTYPE html>
-
-<html>
-
-<head>
-    <title>FPT</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
-<body>
-    <div>Caculator</div>
-        <form action="Timetable" method="get">
-            First <input type="text" name="value1"/> <br/>
-            Second <input type="text" name="value2"/> <br/>
-            Operator 
-            <select name="operator"> 
-                <option>+</option> 
-                <option>-</option> 
-                <option>x</option> 
-                <option>/</option> 
-            </select> <br/>
-            <button type="submit" value="caculator">Submit</button>  
-        </form>
-</body>
-
+<!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="css/login.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="formContent">
+                <form action="Login" method="POST">
+                    <h1>FPT University Academic Portal</h1>
+                    <h3>Login</h3>
+                    <input type="text" id="login" name="login" placeholder="login">
+                    <input type="password" id="password" name="password" placeholder="password">
+                    <input type="submit" value="Log In">
+                    <c:if test="${requestScope.errorMess eq 1 }">
+                        <div class="errorMess">
+                            <b>Login Failed</b>
+                            <p>Please try again.</p>
+                        </div>
+                    </c:if>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>

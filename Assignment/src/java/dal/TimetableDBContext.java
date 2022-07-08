@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Timetable;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Calendar;
+import model.Week;
 
 /**
  *
@@ -18,8 +22,8 @@ import model.Timetable;
  */
 public class TimetableDBContext extends DBContext<Timetable> {
 
-    public ArrayList<Integer> yearList(){     
-        try {          
+    public ArrayList<Integer> yearList() {
+        try {
             ArrayList<Integer> yearList = new ArrayList<>();
             String sql = "select YEAR([Date]) as [Year] \n"
                     + "	from TimeTable \n"
@@ -35,6 +39,35 @@ public class TimetableDBContext extends DBContext<Timetable> {
             Logger.getLogger(TimetableDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public ArrayList<Week> weekList(int year) {
+        ArrayList<Week> weekList = new ArrayList<>();
+        LocalDate date = LocalDate.parse(year+"-01-01");
+        date = date.with(DayOfWeek.MONDAY);
+        int i = 0;
+        if (date.getYear() != year) {
+            date = date.plusDays(7);
+        }
+        while (date.getYear() == year) {    
+            Week week = new Week();
+            week.setWeekNum(i);
+            i++;
+            week.setStart(date);
+            week.setEnd(date.with(DayOfWeek.SUNDAY));
+            date = date.plusDays(7);
+            weekList.add(week);
+        }
+        return weekList;
+    }
+    public ArrayList<LocalDate> dayList(Week week){
+        ArrayList<LocalDate> dayList = new ArrayList<>();
+        LocalDate date = week.getStart();
+        for (int i = 0; i < 7; i++) {                   
+            dayList.add(date);
+            date = date.plusDays(1);
+        }
+        return dayList;
     }
 
     @Override
