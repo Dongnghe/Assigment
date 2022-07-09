@@ -50,8 +50,6 @@ public class AccountDBContext extends DBContext<Account> {
                     + "	from Instructor\n"
                     + "	where InstructorCode = ? and [Password]= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            System.out.println(login);
-            System.out.println(pass);
             stm.setString(1, login);
             stm.setString(2, pass);
             ResultSet rs = stm.executeQuery();

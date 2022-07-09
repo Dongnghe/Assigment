@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import model.Timetable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Calendar;
+import model.Slot;
 import model.Week;
 
 /**
@@ -43,13 +43,13 @@ public class TimetableDBContext extends DBContext<Timetable> {
 
     public ArrayList<Week> weekList(int year) {
         ArrayList<Week> weekList = new ArrayList<>();
-        LocalDate date = LocalDate.parse(year+"-01-01");
+        LocalDate date = LocalDate.parse(year + "-01-01");
         date = date.with(DayOfWeek.MONDAY);
         int i = 0;
         if (date.getYear() != year) {
             date = date.plusDays(7);
         }
-        while (date.getYear() == year) {    
+        while (date.getYear() == year) {
             Week week = new Week();
             week.setWeekNum(i);
             i++;
@@ -60,19 +60,81 @@ public class TimetableDBContext extends DBContext<Timetable> {
         }
         return weekList;
     }
-    public ArrayList<LocalDate> dayList(Week week){
+
+    public ArrayList<LocalDate> dayList(Week week) {
         ArrayList<LocalDate> dayList = new ArrayList<>();
         LocalDate date = week.getStart();
-        for (int i = 0; i < 7; i++) {                   
+        for (int i = 0; i < 7; i++) {
             dayList.add(date);
             date = date.plusDays(1);
         }
         return dayList;
     }
 
-    @Override
-    public ArrayList<Timetable> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<Slot> slotList() {
+        ArrayList<Slot> slots = new ArrayList<>();
+        try {
+            String time;
+            String sql = "SELECT [Slot]\n"
+                    + "      ,[From]\n"
+                    + "      ,[To]\n"
+                    + "  FROM [Assigment].[dbo].[Slot]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Slot slot = new Slot();
+                slot.setSlot(rs.getInt("Slot"));
+                time = rs.getString("From");
+                slot.setFrom(time.substring(0, time.length() - 3));
+                time = rs.getString("To");
+                slot.setTo(time.substring(0, time.length() - 3));
+                slots.add(slot);
+            }
+            return slots;
+        } catch (SQLException ex) {
+            Logger.getLogger(TimetableDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Timetable> listTimeTables(Week week, int InstuctorId) {
+        ArrayList<Timetable> timetables = new ArrayList<>();
+        try {
+            String sql = "select TimetableCode ,\n"
+                    + "	tt.GroupId, \n"
+                    + "	g.GroupCode,\n"
+                    + "	r.RoomName,\n"
+                    + "	tt.[Date],\n"
+                    + "	tt.Slot,\n"
+                    + "	InstructorId\n"
+                    + "	from TimeTable tt\n"
+                    + "	inner join Room r\n"
+                    + "		on tt.RoomId = r.RoomId\n"
+                    + "	inner join Slot s\n"
+                    + "		on s.Slot = tt.Slot\n"
+                    + "	inner join [Group] g\n"
+                    + "		on tt.GroupId = g.GroupId\n"
+                    + "	where tt.[Date] >= ?\n"
+                    + "	and tt.[Date] <= ?\n"
+                    + "	and tt.InstructorId = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, week.getStart().toString());
+            stm.setString(2, week.getEnd().toString());
+            stm.setString(3, "1");
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Timetable timetable = new Timetable();
+                timetable.setTimetableCode(rs.getInt("TimetableCode"));
+                timetable.setDate(LocalDate.parse(rs.getString("Date")));
+                timetable.setSlot(rs.getInt("Slot"));
+                timetable.setRoomName(rs.getString("RoomName"));
+                timetable.setGroup(rs.getString("GroupCode"));
+                timetables.add(timetable);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TimetableDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return timetables;
     }
 
     @Override
@@ -92,6 +154,11 @@ public class TimetableDBContext extends DBContext<Timetable> {
 
     @Override
     public void delete(Timetable entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<Timetable> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

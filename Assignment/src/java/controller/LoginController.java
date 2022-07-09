@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Account;
 
 /**
@@ -54,15 +55,15 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String login = request.getParameter("login");
         String pass = request.getParameter("password");
         AccountDBContext db = new AccountDBContext();
         Account account = db.getByUsernamePassword(login, pass);
         if(account!=null)
         {
-            response.getWriter().println("hello ");
             request.setAttribute("errorMess", 0);
-            request.getSession().setAttribute("account", account);     
+            session.setAttribute("account", account);     
             response.sendRedirect(request.getContextPath() + "/Timetable");
         }
         else

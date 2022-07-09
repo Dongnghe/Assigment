@@ -10,9 +10,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.rmi.server.ExportException;
+import jakarta.servlet.http.HttpSession;
+import model.Timetable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import model.Account;
+import model.Slot;
 import model.Week;
 
 /**
@@ -47,6 +50,7 @@ public class timetableController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String rawYear = request.getParameter("year");
         String rawWeek = request.getParameter("week");
         int selectYear;
@@ -60,8 +64,7 @@ public class timetableController extends HttpServlet {
         } catch (Exception e) {
             selectYear = LocalDate.now().getYear();
             selectWeek = 0;
-        }
-        
+        }        
         request.setAttribute("selectYear", selectYear);
         request.setAttribute("selectWeek", selectWeek);
         TimetableDBContext timetableDBContext = new TimetableDBContext();
@@ -71,6 +74,12 @@ public class timetableController extends HttpServlet {
         request.setAttribute("weekList", weekList);
         ArrayList<LocalDate> dayList = timetableDBContext.dayList(weekList.get(selectWeek));
         request.setAttribute("dayList", dayList);
+        ArrayList<Slot> slotList = timetableDBContext.slotList();
+        request.setAttribute("slotList", slotList);
+        Account account = (Account) session.getAttribute("account");      
+        ArrayList<Timetable> timetableList = new ArrayList<>();
+        timetableList = timetableDBContext.listTimeTables(weekList.get(selectWeek), account.getInstuctorId());
+        request.setAttribute("timetableList", timetableList);
         request.getRequestDispatcher("web/timetable.jsp").forward(request, response);
     }
 
