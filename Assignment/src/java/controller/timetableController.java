@@ -7,7 +7,6 @@ package controller;
 import dal.TimetableDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -22,7 +21,7 @@ import model.Week;
  *
  * @author Giang Dong PC
  */
-public class timetableController extends HttpServlet {
+public class timetableController extends BaseRequiredAuthenticationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,11 +32,6 @@ public class timetableController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -47,10 +41,65 @@ public class timetableController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        Account account = (Account) session.getAttribute("account");
+//        if (account == null) {
+//            response.sendRedirect(request.getContextPath() + "/Login");
+//        }
+//        String rawYear = request.getParameter("year");
+//        String rawWeek = request.getParameter("week");
+//        int selectYear;
+//        int selectWeek;
+//        try {
+//            if (rawYear == null) {
+//                throw new Exception();
+//            }
+//            selectYear = Integer.parseInt(rawYear);
+//            selectWeek = Integer.parseInt(rawWeek);
+//        } catch (Exception e) {
+//            selectYear = LocalDate.now().getYear();
+//            selectWeek = 0;
+//        }
+//        request.setAttribute("selectYear", selectYear);
+//        request.setAttribute("selectWeek", selectWeek);
+//        TimetableDBContext timetableDBContext = new TimetableDBContext();
+//        ArrayList<Integer> yearList = timetableDBContext.yearList();
+//        request.setAttribute("yearList", yearList);
+//        ArrayList<Week> weekList = timetableDBContext.weekList(selectYear);
+//        request.setAttribute("weekList", weekList);
+//        ArrayList<LocalDate> dayList = timetableDBContext.dayList(weekList.get(selectWeek));
+//        request.setAttribute("dayList", dayList);
+//        ArrayList<Slot> slotList = timetableDBContext.slotList();
+//        request.setAttribute("slotList", slotList);
+//
+//        ArrayList<Timetable> timetableList = new ArrayList<>();
+//        timetableList = timetableDBContext.listTimeTables(weekList.get(selectWeek), account.getInstuctorId());
+//
+//        request.setAttribute("timetableList", timetableList);
+//        request.getRequestDispatcher("web/timetable.jsp").forward(request, response);
+//    }
+//
+//    /**
+//     * Handles the HTTP <code>POST</code> method.
+//     *
+//     * @param request servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException if an I/O error occurs
+//     */
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//
+//    }
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
         String rawYear = request.getParameter("year");
         String rawWeek = request.getParameter("week");
         int selectYear;
@@ -59,16 +108,16 @@ public class timetableController extends HttpServlet {
             if (rawYear == null) {
                 throw new Exception();
             }
-            selectYear = Integer.parseInt(rawYear);   
+            selectYear = Integer.parseInt(rawYear);
             selectWeek = Integer.parseInt(rawWeek);
         } catch (Exception e) {
             selectYear = LocalDate.now().getYear();
             selectWeek = 0;
-        }        
+        }
         request.setAttribute("selectYear", selectYear);
         request.setAttribute("selectWeek", selectWeek);
         TimetableDBContext timetableDBContext = new TimetableDBContext();
-        ArrayList<Integer> yearList = timetableDBContext.yearList();     
+        ArrayList<Integer> yearList = timetableDBContext.yearList();
         request.setAttribute("yearList", yearList);
         ArrayList<Week> weekList = timetableDBContext.weekList(selectYear);
         request.setAttribute("weekList", weekList);
@@ -76,25 +125,17 @@ public class timetableController extends HttpServlet {
         request.setAttribute("dayList", dayList);
         ArrayList<Slot> slotList = timetableDBContext.slotList();
         request.setAttribute("slotList", slotList);
-        Account account = (Account) session.getAttribute("account");      
+
         ArrayList<Timetable> timetableList = new ArrayList<>();
         timetableList = timetableDBContext.listTimeTables(weekList.get(selectWeek), account.getInstuctorId());
+
         request.setAttribute("timetableList", timetableList);
         request.getRequestDispatcher("web/timetable.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**

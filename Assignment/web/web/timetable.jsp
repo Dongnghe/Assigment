@@ -77,10 +77,11 @@
                             <td>                              
                                 <c:forEach items="${requestScope.timetableList}" var="tb">
                                     <c:if test="${(tb.date eq d) and (tb.slot eq slot.slot)}">
-                                        <a href="/Assignment/Attendance">${tb.group}</a><br>
+                                        <a href="/Assignment/Attendance?timetableCode=${tb.timetableCode}">${tb.group} - ${tb.courseCode}</a><br>
                                         at ${tb.roomName}  <br>
-                                        <span class="attended">Attended</span></div>                   
-                                        <li>${slot.from} - ${slot.to}</li>
+                                        <c:if test="${tb.taken}"><span class="attended">Attended</span></c:if>
+                                        <c:if test="${!tb.taken}"><span class="notyet">Not Yet</span></c:if>                 
+                                    <li>${slot.from} - ${slot.to}</li>  
                                     </c:if>
                                 </c:forEach>
                             </td>

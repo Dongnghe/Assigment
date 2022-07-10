@@ -102,25 +102,30 @@ public class TimetableDBContext extends DBContext<Timetable> {
         try {
             String sql = "select TimetableCode ,\n"
                     + "	tt.GroupId, \n"
+                    + " \n"
                     + "	g.GroupCode,\n"
-                    + "	r.RoomName,\n"
+                    + "    r.RoomName,\n"
                     + "	tt.[Date],\n"
-                    + "	tt.Slot,\n"
-                    + "	InstructorId\n"
-                    + "	from TimeTable tt\n"
-                    + "	inner join Room r\n"
-                    + "		on tt.RoomId = r.RoomId\n"
-                    + "	inner join Slot s\n"
-                    + "		on s.Slot = tt.Slot\n"
-                    + "	inner join [Group] g\n"
-                    + "		on tt.GroupId = g.GroupId\n"
-                    + "	where tt.[Date] >= ?\n"
-                    + "	and tt.[Date] <= ?\n"
-                    + "	and tt.InstructorId = ?";
+                    + "    tt.Slot,\n"
+                    + "    InstructorId,\n"
+                    + "	CourseCode,"
+                    + " Taken\n"
+                    + "    from TimeTable tt\n"
+                    + "		inner join Room r\n"
+                    + "			on tt.RoomId = r.RoomId\n"
+                    + "		inner join Slot s\n"
+                    + "			on s.Slot = tt.Slot\n"
+                    + "		inner join [Group] g\n"
+                    + "			on tt.GroupId = g.GroupId\n"
+                    + "		inner join [Course] c\n"
+                    + "			on g.CourseId = c.CourseId\n"
+                    + "    where tt.[Date] >= ?\n"
+                    + "    and tt.[Date] <= ?\n"
+                    + "    and tt.InstructorId = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, week.getStart().toString());
             stm.setString(2, week.getEnd().toString());
-            stm.setString(3, "1");
+            stm.setInt(3, InstuctorId);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Timetable timetable = new Timetable();
@@ -129,6 +134,8 @@ public class TimetableDBContext extends DBContext<Timetable> {
                 timetable.setSlot(rs.getInt("Slot"));
                 timetable.setRoomName(rs.getString("RoomName"));
                 timetable.setGroup(rs.getString("GroupCode"));
+                timetable.setCourseCode(rs.getString("CourseCode"));
+                timetable.setTaken(rs.getBoolean("Taken"));
                 timetables.add(timetable);
             }
         } catch (SQLException ex) {

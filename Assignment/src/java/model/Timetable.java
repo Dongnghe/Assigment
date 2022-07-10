@@ -5,6 +5,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -16,7 +17,10 @@ public class Timetable {
     private String roomname;
     private LocalDate Date;
     private String group;
-
+    private String CourseCode;
+    private boolean Taken;
+    private LocalDateTime takenDate;
+    private int InstructorId;
     public String getRoomname() {
         return roomname;
     }
@@ -62,6 +66,38 @@ public class Timetable {
 
     public void setDate(LocalDate Date) {
         this.Date = Date;
+    }
+
+    public String getCourseCode() {
+        return CourseCode;
+    }
+
+    public void setCourseCode(String CourseCode) {
+        this.CourseCode = CourseCode;
+    }
+
+    public boolean isTaken() {
+        return Taken;
+    }
+
+    public void setTaken(boolean Taken) {
+        this.Taken = Taken;
+    }
+
+    public LocalDateTime getTakenDate() {
+        return takenDate;
+    }
+
+    public void setTakenDate(LocalDateTime takenDate) {
+        this.takenDate = takenDate;
+    }
+
+    public int getInstructorId() {
+        return InstructorId;
+    }
+
+    public void setInstructorId(int InstructorId) {
+        this.InstructorId = InstructorId;
     }
     
 }

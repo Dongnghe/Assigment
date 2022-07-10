@@ -1,85 +1,77 @@
-<%-- 
-    Document   : attendance
-    Created on : Jun 20, 2022, 11:25:54 PM
-    Author     : Giang Dong PC
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/attendance.css">
-    <title>Document</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/attendance.css">
+        <title>Document</title>
+    </head>
 
-<body>
-    <div class="banner">
-        <h1>Single Activity Attendance</h1>
-    </div>
-    <Div class="info-banner">   
-        <p>Attendance for <span>PRJ301</span> with lecturer <span>sonnt5</span> at slot 1 on Monday 13/06/2022, Summer 2022 in room
-                DE-C201</p>
-    </Div>
-    <div>
-        <form form method="post" action="">
-            <table>
-                <tr>
-                    <th>INDEX</th>
-                    <th>GROUP</th>
-                    <th>CODE</th>
-                    <th>NAME</th>
-                    <th>IMAGE</th>
-                    <th colspan="2">ATTENDANCE</th>
-                    <th>COMMENT</th>
-                    <th>TAKER</th>
-                    <TH>RECORD TIME</TH>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td><a href="/Assignment/Group">SE1631</a></td>
-                    <td>HE163818</td>
-                    <td>Nguyễn Giang Đông</td>
-                    <td><img class="studentImg" src="../img/HE163818.png" alt="DongNGHE163818"></td>
-                    <td>
-                        <label for="attended">Attended</label>
-                        <input type="radio" name="1" id="Attended" value="Attended" checked>
-                    </td>
-                    <td>
-                        <label for="absent">Absent</label>
-                        <input type="radio" name="1" id="Absent" value="Absent">
-                    </td>
-                    <td></td>
-                    <td>sonnt5</td>
-                    <td>13/06/2022</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a href="/Assignment/Group">SE1631</a></td>
-                    <td>HE163818</td>
-                    <td>Nguyễn Giang Đông</td>
-                    <td><img class="studentImg" src="D:\GitHub\Prj321Assigment\Assignment\web\img\HE163818.png" alt="DongNGHE163818"></td>
-                    <td>
-                        <label for="attended">Attended</label>
-                        <input type="radio" name="2" id="Attended" value="Attended" checked>
-                    </td>
-                    <td>
-                        <label for="absent">Absent</label>
-                        <input type="radio" name="2" id="Absent" value="Absent">
-                    </td>
-                    <td></td>
-                    <td>sonnt5</td>
-                    <td>13/06/2022</td>
-                </tr>
-            </table>
+    <body>
+        <div class="banner">
+            <h1>Single Activity Attendance</h1>
+        </div>
+        <Div class="info-banner">   
+            <p>Attendance for <span>${requestScope.timetable.group} - ${requestScope.timetable.courseCode}</span> with lecturer <span>${sessionScope.account.instuctorCode}</span> at slot ${requestScope.timetable.slot} on
+                <fmt:parseDate value="${requestScope.timetable.date}" pattern="yyyy-MM-dd" var = "parsedDate" type="date"/>
+                <fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy"/> in room ${requestScope.timetable.roomName}
+        </Div>
+        <div>
+            <fmt:parseDate value="${requestScope.timetable.takenDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
 
-        </form>
+            <form form method="post" action="">
+                <table>
+                    <tr>
+                        <th>INDEX</th>
+                        <th>GROUP</th>
+                        <th>CODE</th>
+                        <th>NAME</th>
+                        <th colspan="2">ATTENDANCE</th>
+                        <th>COMMENT</th>
+                        <th>TAKER</th>
+                        <TH>RECORD TIME</TH>
+                    </tr>
 
-    </div>
+                    <c:forEach items="${requestScope.attendanceList}" var="al" varStatus="loop">
+                        <tr>
+                            <td>${loop.count}</td>
+                            <td><a href="/Assignment/Group">${requestScope.timetable.group}</a></td>
+                            <td>${al.student.studentCode}</td>
+                            <td>${al.student.fullName}</td>
+                            <td>
+                                <label for="attended">Attended</label>
+                                <input type="radio" name="${requestScope.timetable.timetableCode}_${al.student.studentId}" id="Attended" value="1" 
+                                       <c:if test="${al.attended}"> 
+                                       checked
+                                        </c:if>>
+                            </td>
+                            <td>
+                                <label for="absent">Absent</label>
+                                <input type="radio" name="${requestScope.timetable.timetableCode}_${al.student.studentId}" id="Absent" value="0"
+                                       <c:if test="${!al.attended}"> 
+                                       checked
+                                        </c:if>
+                                    >
+                            </td>
+                            <td></td>
+                            <td>${sessionScope.account.instuctorCode}</td>
+                            <td><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${parsedDateTime}" /></td>
+                        </tr>
+                    </c:forEach>
 
-</body>
+
+
+                </table>
+
+            </form>
+
+        </div>
+
+    </body>
 
 </html>
