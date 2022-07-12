@@ -24,7 +24,7 @@
         <div>
             <fmt:parseDate value="${requestScope.timetable.takenDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
 
-            <form form method="post" action="">
+            <form form method="post" action="Attendance">
                 <table>
                     <tr>
                         <th>INDEX</th>
@@ -63,11 +63,9 @@
                             <td><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${parsedDateTime}" /></td>
                         </tr>
                     </c:forEach>
-
-
-
+                        
                 </table>
-
+                <input type="submit" value="Submit">
             </form>
 
         </div>

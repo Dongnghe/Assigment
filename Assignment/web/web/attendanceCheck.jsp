@@ -19,7 +19,7 @@
         <p>Attentdance Infomation for group Se1634 course PRJ301 </p>
     </div>
     <div class="scroller" style="overflow-x:auto;">
-        <form form method="post" action="">
+        <form method="post" action="Atte">
             <table>
                 <thead>
                     <tr>

@@ -95,21 +95,21 @@ public class attendanceController extends BaseRequiredAuthenticationController {
         AttendanceDBContext attendanceDBContext;
         attendanceDBContext = new AttendanceDBContext();
         Timetable timetable = attendanceDBContext.getInfo(timetableCode);       
-//        if (timetable.getInstructorId() != account.getInstuctorId()) {
-//            response.sendRedirect(request.getContextPath() + "/Timetable");
-//        } else{
+        if (timetable.getInstructorId() != account.getInstuctorId()) {
+            response.sendRedirect(request.getContextPath() + "/Timetable");
+        } else{
             request.setAttribute("timetable", timetable);           
             ArrayList<Attendance> attendances = attendanceDBContext.list(timetableCode);
             request.setAttribute("attendanceList", attendances);
             request.getRequestDispatcher("web/attendance.jsp").forward(request, response);
-//        }
+        }
 
         
     }
 
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
 }

@@ -20,13 +20,13 @@ import model.Account;
 public abstract class BaseRequiredAuthenticationController extends HttpServlet {
    
     private boolean isAuthenticated(HttpServletRequest request) {
-//        Account account = (Account) request.getSession().getAttribute("account");
-//        if(account ==null)
-//            return false;
-//        else
-//        {
+        Account account = (Account) request.getSession().getAttribute("account");
+        if(account ==null)
+            return false;
+        else
+        {
             return true;
-//        }
+        }
     }
 
 
