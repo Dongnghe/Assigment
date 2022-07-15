@@ -43,20 +43,28 @@ table {
 
 tr:first-child {
     background-color: rgb(255, 191, 81);
+}
+td:first-child{
+    width: 3%;
+}
+td:nth-child(2) {
     width: 5%;
 }
 
-td:nth-child(2) {
+td:nth-child(3) {
+    width: 7%;
+}
+td:nth-child(4){
+    width: 7%;
+}
+td:nth-child(5){
+    width: 20%;
+}
+td:nth-child(6),
+td:nth-child(7) {
     width: 10%;
 }
 
-td:nth-child(3) {
-    width: 10%;
-}
-td:nth-child(5),
-td:nth-child(6) {
-    width: 10%;
-}
 a{
     text-decoration:none;
 }
@@ -64,14 +72,20 @@ input[type=button], input[type=submit], input[type=reset]  {
     background-color: #56baed;
     border: none;
     color: white;
-    padding: 15px 80px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
-    -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
-    margin: 5px 20px 20px 20px;
-    transition: all 0.3s ease-in-out;
+    margin: 10px 20px 20px 75%;
+}
+.confirm{
+    color: rgb(0, 21, 255);
+    background-color: rgb(255, 191, 81);
+    padding: 10px 10px;
+    margin: 10px 20px 20px 75%;
+    width: 125px;
+    border-radius: 5px 5px 5px 5px;
 }

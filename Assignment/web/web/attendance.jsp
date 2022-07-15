@@ -23,8 +23,8 @@
         </Div>
         <div>
             <fmt:parseDate value="${requestScope.timetable.takenDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
-
             <form form method="post" action="Attendance">
+                <input type="hidden" name = "timetableCode" value="${requestScope.timetable.timetableCode}">
                 <table>
                     <tr>
                         <th>INDEX</th>
@@ -36,9 +36,10 @@
                         <th>TAKER</th>
                         <TH>RECORD TIME</TH>
                     </tr>
-
+                    
                     <c:forEach items="${requestScope.attendanceList}" var="al" varStatus="loop">
                         <tr>
+                            <input type="hidden" name = "student" value="${al.student.studentId}">
                             <td>${loop.count}</td>
                             <td><a href="/Assignment/Group">${requestScope.timetable.group}</a></td>
                             <td>${al.student.studentCode}</td>
@@ -48,7 +49,7 @@
                                 <input type="radio" name="${requestScope.timetable.timetableCode}_${al.student.studentId}" id="Attended" value="1" 
                                        <c:if test="${al.attended}"> 
                                        checked
-                                        </c:if>>
+                                       </c:if>>
                             </td>
                             <td>
                                 <label for="absent">Absent</label>
@@ -67,7 +68,11 @@
                 </table>
                 <input type="submit" value="Submit">
             </form>
-
+                <c:if test="${requestScope.confirm}">
+                        <div class="confirm"">
+                            <b>Summit Confirm</b>
+                        </div>
+                    </c:if>
         </div>
 
     </body>

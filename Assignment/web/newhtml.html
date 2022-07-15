@@ -10,21 +10,229 @@
     </head>
 
     <body>
-        <table>
-            <tr>
-                <th>INDEX</th>
-                <th>GROUP</th>
-                <th>CODE</th>
-                <th>NAME</th>
-                <th colspan="2">ATTENDANCE</th>
-                <th>COMMENT</th>
-                <th>TAKER</th>
-                <TH>RECORD TIME</TH>
-            </tr>
+        <div class="banner">
+            <h1>Single Activity Attendance</h1>
+        </div>
+        <Div class="info-banner">   
+            <p>Attendance for <span>SE1631     - PRJ301    </span> with lecturer <span>sonnt5    </span> at slot 1 on
 
-                
-        </table>
+                27/06/2022 in room DE-C201   
+        </Div>
+        <div>
+
+
+            <form form method="post" action="Attendance">
+                <table>
+                    <tr>
+                        <th>INDEX</th>
+                        <th>GROUP</th>
+                        <th>CODE</th>
+                        <th>NAME</th>
+                        <th colspan="2">ATTENDANCE</th>
+                        <th>COMMENT</th>
+                        <th>TAKER</th>
+                        <TH>RECORD TIME</TH>
+                    </tr>
+
+
+                    <tr>
+                    <input type="hidden" name = "student" value="5">
+                    <td>1</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE141428  </td>
+                    <td>Nguyễn Phạm Bình Minh</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_5" id="Attended" value="1" 
+
+                               checked
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_5" id="Absent" value="0"
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="7">
+                    <td>2</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE141476  </td>
+                    <td>Nguyễn Thế Thái</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_7" id="Attended" value="1" 
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_7" id="Absent" value="0"
+
+                               checked
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="0">
+                    <td>3</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE163818  </td>
+                    <td>Nguyễn  Giang Đông</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_0" id="Attended" value="1" 
+
+                               checked
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_0" id="Absent" value="0"
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="10">
+                    <td>4</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE163630  </td>
+                    <td>Đinh Thanh Hà</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_10" id="Attended" value="1" 
+
+                               checked
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_10" id="Absent" value="0"
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="14">
+                    <td>5</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE163677  </td>
+                    <td>Cao Thanh Hải</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_14" id="Attended" value="1" 
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_14" id="Absent" value="0"
+
+                               checked
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="15">
+                    <td>6</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE163697  </td>
+                    <td>Nguyễn Đức Trung Thành</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_15" id="Attended" value="1" 
+
+                               checked
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_15" id="Absent" value="0"
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="17">
+                    <td>7</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE163849  </td>
+                    <td>Đào Tiến Dũng</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_17" id="Attended" value="1" 
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_17" id="Absent" value="0"
+
+                               checked
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+
+                    <tr>
+                    <input type="hidden" name = "student" value="18">
+                    <td>8</td>
+                    <td><a href="/Assignment/Group">SE1631    </a></td>
+                    <td>HE163997  </td>
+                    <td>Khuất Thị Minh Ánh</td>
+                    <td>
+                        <label for="attended">Attended</label>
+                        <input type="radio" name="2_18" id="Attended" value="1" 
+                               >
+                    </td>
+                    <td>
+                        <label for="absent">Absent</label>
+                        <input type="radio" name="2_18" id="Absent" value="0"
+
+                               checked
+
+                               >
+                    </td>
+                    <td></td>
+                    <td>sonnt5    </td>
+                    <td></td>
+                    </tr>
+                </table>
                 <input type="submit" value="Submit">
+            </form>
+            <div class="confirm">
+                <b>Summit Confirm</b>
+            </div>
+        </div>
 
     </body>
 

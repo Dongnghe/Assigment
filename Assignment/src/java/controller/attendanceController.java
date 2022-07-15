@@ -90,26 +90,46 @@ public class attendanceController extends BaseRequiredAuthenticationController {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         String timetableCodeRaw = request.getParameter("timetableCode");
+        String confirm;
+        try {
+            confirm = request.getParameter("confirm");
+        } catch (Exception e) {
+            confirm = null;
+        }      
         int timetableCode;
         timetableCode = Integer.parseInt(timetableCodeRaw);
         AttendanceDBContext attendanceDBContext;
         attendanceDBContext = new AttendanceDBContext();
-        Timetable timetable = attendanceDBContext.getInfo(timetableCode);       
+        Timetable timetable = attendanceDBContext.getInfo(timetableCode);
         if (timetable.getInstructorId() != account.getInstuctorId()) {
             response.sendRedirect(request.getContextPath() + "/Timetable");
-        } else{
-            request.setAttribute("timetable", timetable);           
+        } else {
+            if(confirm!= null) request.setAttribute("confirm", true);
+            request.setAttribute("timetable", timetable);
             ArrayList<Attendance> attendances = attendanceDBContext.list(timetableCode);
             request.setAttribute("attendanceList", attendances);
             request.getRequestDispatcher("web/attendance.jsp").forward(request, response);
         }
 
-        
     }
 
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    }
+        int timetableCode = Integer.parseInt(request.getParameter("timetableCode"));
+        String[] studentId = request.getParameterValues("student");
+        String value;
+        AttendanceDBContext attendanceDBContext;
+        attendanceDBContext = new AttendanceDBContext();
+        for (String studentId1 : studentId) {
+            value = request.getParameter(timetableCode + "_" + studentId1);    
+            if (value.equals("1")) {
+                attendanceDBContext.update(timetableCode, Integer.parseInt(studentId1), true);
+            } else{
+                attendanceDBContext.update(timetableCode, Integer.parseInt(studentId1), false);
+            }
+        }
+            attendanceDBContext.updateTime(timetableCode);
+        response.sendRedirect(request.getContextPath() + "/Attendance?timetableCode="+timetableCode+"&confirm=1");
+    }    
 
 }

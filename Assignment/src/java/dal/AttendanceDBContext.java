@@ -7,7 +7,9 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,31 +71,6 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         return null;
     }
 
-    @Override
-    public ArrayList<Attendance> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Attendance get(Attendance entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void insert(Attendance entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void update(Attendance entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete(Attendance entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public ArrayList<Attendance> list(int timetableCode) {
         ArrayList<Attendance> attendances = new ArrayList<>();
         try {
@@ -124,9 +101,68 @@ public class AttendanceDBContext extends DBContext<Attendance> {
                 attendances.add(attendance);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TimetableDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return attendances;
     }
 
+    public void update(int timetableCode, int studentId1, boolean b) {
+        try {
+            connection.setAutoCommit(false);
+            String sql = "UPDATE [dbo].[Enroll]\n"
+                    + "   SET [Attended] = ?\n"
+                    + " WHERE [StudentId] = ? \n"
+                    + "	and [TimetableCode] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, b);
+            stm.setInt(2, studentId1);
+            stm.setInt(3, timetableCode);
+            stm.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
+    public void updateTime(int timetableCode ) {
+        try {
+            connection.setAutoCommit(false);
+            String sql = "UPDATE [dbo].[TimeTable]\n"
+                    + "   SET [Taken] = ?\n"
+                    + "      ,[TakenDate] = ?\n"
+                    + " WHERE TimetableCode = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, true);
+            stm.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            stm.setInt(3, timetableCode);
+            stm.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
 }
