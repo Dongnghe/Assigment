@@ -11,50 +11,85 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="info-banner">
-            <p>Attentdance Infomation for group Se1634 course PRJ301 </p>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>TERM</th>
+                        <th>GROUP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <c:forEach items="${requestScope.termList}" var="tl">
+                                <c:if test="${tl.termId eq requestScope.termSelected}">
+                        <li>${tl.termName}</li>
+                        </c:if>
+                        <c:if test="${tl.termId ne requestScope.termSelected}">
+                        <li><a href="/Assignment/AttendanceCheck?term=${tl.termId}">${tl.termName}</a><br></li>
+                        </c:if>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach items="${requestScope.groupList}" var="gl">                               
+                        <c:if test="${gl.groupId eq requestScope.groupSelected.groupId}">
+                        <li>${gl.groupCode} - ${gl.courseCode}</li>
+                        </c:if>
+                        <c:if test="${gl.groupId ne requestScope.groupSelected.groupId}">
+                        <li><a href="/Assignment/AttendanceCheck?term=${requestScope.termSelected}&group=${gl.groupId}">${gl.groupCode} - ${gl.courseCode}</a><br></li>
+                        </c:if>
+                    </c:forEach>
+                </td>
+                </tr>
+
+                </tbody>
+            </table>
         </div>
-        <div class="scroller" style="overflow-x:auto;">
-            <form method="post" action="Atte">
+        <c:if test="${requestScope.groupSelected ne null}">
+            <div class="info-banner">
+                <p>Attentdance Infomation for group ${requestScope.groupSelected.groupCode} course ${requestScope.groupSelected.courseCode} </p>
+            </div>
+            <div class="scroller" style="overflow-x:auto;">
                 <table>
                     <thead>
                         <tr>
-                            <td>INDEX</td>
+                            <th>INDEX</th>
                             <th>GROUP</th>
                             <th>CODE</th>
                             <th>NAME</th>
-                            <th>IMAGE</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
-                            <th>20/6</th>
-                            <th>21/6</th>
+                                <c:forEach items="${requestScope.timetableList}" var="tt">     
+                                <th>
+                                    <fmt:parseDate value="${tt.date}" pattern="yyyy-MM-dd" var = "parsedDate" type="date"/>
+                                    <fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM" />
+                                </th>
+                            </c:forEach>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="">SE1631</a></td>
-                            <td>HE163818</td>
-                            <td>Nguyễn Giang Đông</td>
-                            <td><img class="studentImg" src="HE163818.png" alt="DongNGHE163818"></td>
-                            <td class="attened">Attened</td>                        
-                            <td class="absent">Absent</td>
-                        </tr>
+                        <c:forEach items="${requestScope.attendanceCheckList}" var="ac" varStatus="loop">    
+                            <tr>
+                                <td>${loop.count}</td>
+                                <td>${requestScope.groupSelected.groupCode}</td>
+                                <td>${ac.student.studentCode}</td>
+                                <td>${ac.student.fullName}</td>
+                                <c:forEach items="${ac.attentedList}" var="tt">                                      
+                                        <c:if test="${tt}">
+                                            <td class="attened">Attened</td>   
+                                        </c:if>
+                                        <c:if test="${!tt}">
+                                            <td class="absent">Absent</td>  
+                                        </c:if>
+                                </c:forEach>
+                            </tr>
+
+                        </c:forEach>
+
                     </tbody>
-
                 </table>
-            </form>
+            </div>
+        </c:if>
 
-        </div>
+
     </body>
 </html>

@@ -13,6 +13,9 @@ public class Student {
     private String StudentCode;
     private String FullName;
 
+    public Student() {
+    }
+
     public int getStudentId() {
         return StudentId;
     }
